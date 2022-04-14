@@ -25,8 +25,7 @@
 </template>
 
 <script>
-import { onMounted, reactive, getCurrentInstance } from "vue";
-import { useMessage, useLoadingBar } from "naive-ui";
+import { onMounted } from "vue";
 import { UpIconHeader, UpCard } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
 
@@ -38,13 +37,12 @@ export default {
   setup() {
     let items = [
       {
-        name: 'asd',
-        value: 'asd'
-      }
-    ]
+        name: "asd",
+        value: "asd",
+      },
+    ];
     let memory = items;
-    onMounted(() => {
-    });
+    onMounted(() => {});
 
     return {
       items,

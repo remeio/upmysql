@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouterLink } from "vue-router";
 import { h } from "vue";
 import { UpIcon } from "@/components/common";
-import { routerConfig } from "@/router/config"
+import { routerConfig } from "@/router/config";
 /**
  * 渲染 icon
  * @param {String} icon icon name
@@ -27,7 +27,6 @@ function renderRouterLink(name, label) {
       { default: () => label }
     );
 }
-
 
 // 动态路由
 let routerNameDict = new Array();
