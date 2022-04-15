@@ -12,8 +12,8 @@ import VueHighlightJS from "vue-highlightjs";
 import "highlight.js/styles/atom-one-dark.css";
 
 // 创建 APP
-const app2 = createApp(App);
+const app = createApp(App);
 // 使用插件
-app2.use(naive).use(VueHighlightJS).use(VueClipboard).use(router);
+app.use(naive).use(VueHighlightJS).use(VueClipboard).use(router);
 // 挂载
-app2.mount("#app");
+app.mount("#app");

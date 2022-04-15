@@ -24,7 +24,7 @@ export default {
               // 设置颜色深度
               depth: props.depth,
             },
-            h(iconDict[props.icon])
+            () => h(iconDict[props.icon])
           )
         );
     }
@@ -38,7 +38,7 @@ export default {
           // 设置颜色深度
           depth: props.depth,
         },
-        h(iconDict[props.icon])
+        () => h(iconDict[props.icon])
       );
   },
   props: {
