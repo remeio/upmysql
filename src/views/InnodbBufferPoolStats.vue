@@ -9,7 +9,7 @@
           :cols="LOCAL_CONFIG.style.gridCols"
           style="margin: 4px"
         >
-          <n-gi v-for="item in memory.slice(0, 6)" :key="item.name">
+          <n-gi v-for="item in memory" :key="item.name">
             <up-card
               :label="item.name"
               :value="item.value"
@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted, reactive } from "vue";
 import { UpIconHeader, UpCard, UpIcon } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
-
+import query from '@/dao'
 export default {
   components: {
     UpCard,
@@ -44,34 +44,23 @@ export default {
     UpIcon,
   },
   setup() {
-    let items = [
-      {
-        name: "the destination for log output",
-        value: "ON",
-        extra: "log_output ",
-      },
-      {
-        name: "the destination for log output",
-        value: "ON",
-        extra: "log_output ",
-      },
-      {
-        name: "the destination for log output",
-        value: "ON",
-        extra: "log_output ",
-      },
-      {
-        name: "the destination for log output",
-        value: "ON",
-        extra: "log_output ",
-      },
-    ];
-    let memory = items;
-    onMounted(() => {});
+    let items = reactive([]);
+    onMounted(() => {
+      console.log(query)
+      query("show variables", (err, resu) => {
+        console.log(err, resu)
+        console.log(items)
+        resu.forEach(element => {
+          items.push({
+            name: element.Variable_name,
+            value: element.Value
+          })
+        });
+      })
+    });
 
     return {
       items,
-      memory,
       LOCAL_CONFIG,
     };
   },

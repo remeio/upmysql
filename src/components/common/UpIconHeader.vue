@@ -5,7 +5,7 @@ import UpIcon from "./UpIcon.vue";
 
 export default {
   setup(props) {
-    const _appThemeColor = inject("appThemeColor");
+    const appThemeColor = inject("appThemeColor");
     // 组件字典
     const headerDict = { 1: NH1, 2: NH2, 3: NH3, 4: NH4, 5: NH5, 6: NH6 };
     // 图标尺寸字典
@@ -20,7 +20,7 @@ export default {
           {
             icon: props.icon,
             size: iconSizeDict[props.level],
-            color: _appThemeColor,
+            color: appThemeColor,
           },
           h(props.icon)
         ),

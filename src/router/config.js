@@ -6,11 +6,11 @@ const routerConfig = [
     children: [
       {
         type: "group",
-        label: "参数配置",
+        label: "服务端管理",
         key: "variable",
         children: [
           {
-            label: "InnoDB 缓冲池",
+            label: "日志",
             key: "innodb_buffer_pool",
             icon: "BarChartOutline",
             component: import("@/views/InnodbBufferPoolStats.vue"),
