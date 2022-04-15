@@ -19,6 +19,7 @@
     "core-js": "^3.6.5",
     "highlight.js": "^11.3.1",
     "lodash": "^4.17.21",
+    "mysql": "^2.18.1",
     "naive-ui": "^2.19.11",
     "vue": "^3.0.0",
     "vue-clipboard-plus": "^1.0.6",

@@ -94,7 +94,6 @@ import javascript from "highlight.js/lib/languages/javascript";
 hljs.registerLanguage("javascript", javascript);
 import { darkTheme } from "naive-ui";
 import { CloudyNight, SunnyOutline } from "@vicons/ionicons5";
-
 export default {
   components: {
     CloudyNight,

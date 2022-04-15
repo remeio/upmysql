@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-
 // naive-ui 插件
 import naive from "naive-ui";
 // 路由插件
@@ -13,8 +12,8 @@ import VueHighlightJS from "vue-highlightjs";
 import "highlight.js/styles/atom-one-dark.css";
 
 // 创建 APP
-const app = createApp(App);
+const app2 = createApp(App);
 // 使用插件
-app.use(naive).use(VueHighlightJS).use(VueClipboard).use(router);
+app2.use(naive).use(VueHighlightJS).use(VueClipboard).use(router);
 // 挂载
-app.mount("#app");
+app2.mount("#app");
