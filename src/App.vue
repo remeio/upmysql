@@ -101,7 +101,7 @@ export default {
     SunnyOutline,
   },
   setup() {
-    let collapsed = ref(true);
+    let collapsed = ref(false);
     let nativeScrollbar = ref(false);
     let layoutContentStyle = reactive({
       padding: "24px",

@@ -1,5 +1,5 @@
 <template>
-  <n-card hoverable>
+  <n-card hoverable :size="size">
     <template #header-extra>
       <slot></slot>
     </template>
@@ -43,6 +43,10 @@ export default {
     },
     extra: {
       type: String,
+    },
+    size: {
+      type: String,
+      default: "medium",
     },
   },
 };
