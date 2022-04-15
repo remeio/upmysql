@@ -5,7 +5,8 @@ import App from "./App.vue";
 import naive from "naive-ui";
 // 路由插件
 import { router } from "@/router/router";
-
+import pool from "@/dao/index.js";
+console.log(pool);
 // 创建 APP
 const app = createApp(App);
 // 使用插件
