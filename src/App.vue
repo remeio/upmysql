@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <n-config-provider :hljs="hljs" :theme="theme ? null : darkTheme">
+    <n-config-provider
+      :locale="zhCN"
+      :date-locale="dateZhCN"
+      :hljs="hljs"
+      :theme="theme ? null : darkTheme"
+    >
       <n-loading-bar-provider>
         <n-dialog-provider>
           <n-message-provider>
@@ -94,6 +99,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 hljs.registerLanguage("javascript", javascript);
 import { darkTheme } from "naive-ui";
 import { CloudyNight, SunnyOutline } from "@vicons/ionicons5";
+import { zhCN, dateZhCN } from "naive-ui";
 export default {
   components: {
     CloudyNight,
@@ -121,6 +127,8 @@ export default {
       theme,
       darkTheme,
       switchTheme,
+      zhCN,
+      dateZhCN,
     };
   },
 };

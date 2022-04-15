@@ -31,6 +31,8 @@ export default {
       page: 1,
       pageCount: 1,
       pageSize: 10,
+      pageSizes: [10, 50, 100],
+      showSizePicker: true,
       prefix({ itemCount }) {
         return `总数 ${itemCount}`;
       },
