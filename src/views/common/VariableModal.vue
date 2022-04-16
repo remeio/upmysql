@@ -19,6 +19,11 @@
             v-model:value="formData.value"
             v-if="formData.value == 'ON' || formData.value == 'OFF'"
           />
+          <n-input-number
+            v-else-if="!isNaN(formData.value)"
+            v-model:value="formData.value"
+            clearable
+          />
           <n-input
             v-else
             v-model:value="formData.value"
@@ -38,7 +43,7 @@
 </template>
 
 <script>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, inject, reactive, ref, watch } from "vue";
 import { useMessage } from "naive-ui";
 import executeSql from "@/dao";
 export default {
@@ -50,17 +55,6 @@ export default {
         {
           required: true,
           message: "请输入配置值",
-          validator(rule, value) {
-            console.log("sads");
-            if (!value) {
-              return new Error("需要年龄");
-            } else if (!/^\d*$/.test(value)) {
-              return new Error("年龄应该为整数");
-            } else if (Number(value) < 18) {
-              return new Error("年龄应该超过十八岁");
-            }
-            return true;
-          },
           trigger: ["input", "blur"],
         },
       ],
@@ -72,27 +66,38 @@ export default {
       },
       set: (val) => context.emit("update:modelValue", val),
     });
+    watch(showModal, (r) => {
+      if (r) {
+        const n = props.data.data;
+        formData.name = n.name;
+        formData.value = n.value;
+        formData.extra = n.extra;
+      }
+    });
     watch(props.data, (data) => {
       const n = data.data;
       formData.name = n.name;
       formData.value = n.value;
       formData.extra = n.extra;
     });
+    const whenChangSuccess = inject("whenChangSuccess");
     const submitForm = function () {
       formRef.value.validate((errors) => {
-        console.log(errors);
         if (errors) {
           return;
         }
-        executeSql(
-          "set global " + formData.extra + "='" + formData.value + "'"
-        ).then(
+        let tmp = formData.value;
+        if (isNaN(formData.value)) {
+          tmp = "'" + tmp + "'";
+        }
+        executeSql("set global " + formData.extra + "=" + tmp).then(
           function () {
             message.success("设置成功");
             showModal.value = false;
+            whenChangSuccess(formData.value);
           },
-          function () {
-            message.error("设置失败");
+          function ({ sqlMessage }) {
+            message.error("设置失败 [" + sqlMessage + "]");
           }
         );
       });

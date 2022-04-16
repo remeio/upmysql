@@ -18,7 +18,7 @@
             :color="colorComputedFunc(item.value)"
             v-if="showSwitchComputedFunc(item.value)" /></up-card></n-gi
     ></n-grid>
-    <variable-modal :data="variable" v-model="showModal"/>
+    <variable-modal :data="variable" v-model="showModal" />
   </div>
 </template>
 
@@ -27,6 +27,7 @@ import { UpCard, UpIcon } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
 import { reactive, ref } from "@vue/reactivity";
 import VariableModal from "./VariableModal.vue";
+import { provide } from '@vue/runtime-core';
 export default {
   components: {
     UpCard,
@@ -48,11 +49,15 @@ export default {
     const showSwitchComputedFunc = (value) => value == "ON" || value == "OFF";
     const valueComputedFunc = (value) => (value ? value : "-");
     const variable = reactive({ data: {} });
-    const showModal = ref(false)
+    const showModal = ref(false);
     const onClickVariable = function (item) {
       variable.data = item;
-      showModal.value = true
+      showModal.value = true;
     };
+    const whenChangSuccess = (newVal) => {
+      variable.data.value = newVal;
+    };
+    provide("whenChangSuccess", whenChangSuccess)
     return {
       LOCAL_CONFIG,
       colorComputedFunc,
@@ -60,7 +65,7 @@ export default {
       valueComputedFunc,
       onClickVariable,
       variable,
-      showModal
+      showModal,
     };
   },
 };

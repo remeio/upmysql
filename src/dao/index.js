@@ -17,11 +17,11 @@ var executeSql = function (sql) {
         conn.query(sql, function (qerr, vals, fields) {
           pool.releaseConnection(conn);
           if (qerr) {
-            console.log("sql query error: ", err);
-            reject(qerr).catch(err=>{console.log(err)});
+            console.log("sql query error: ", qerr);
+            reject(qerr);
             return;
           }
-          console.log("sql [" + sql + "]query success: ", vals);
+          console.log("sql [" + sql + "] query success: ", vals.length);
           resolve(vals, fields);
           return;
         });
