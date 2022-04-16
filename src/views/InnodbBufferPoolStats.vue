@@ -123,7 +123,6 @@ export default {
       {
         title: "时间",
         key: "event_time",
-        sorter: true,
       },
       {
         title: "命令类型",
