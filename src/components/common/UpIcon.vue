@@ -77,6 +77,7 @@ import {
   BuildOutline,
   CubeOutline,
   AnalyticsOutline,
+  InformationCircleOutline,
 } from "@vicons/ionicons5";
 const iconDict = {
   BarChartOutline,
@@ -87,7 +88,9 @@ const iconDict = {
   Ellipse,
   BuildOutline,
   CubeOutline,
-  AnalyticsOutline
+  AnalyticsOutline,
+
+  InformationCircleOutline,
 };
 </script>
 
