@@ -125,9 +125,20 @@ export default {
         key: "event_time",
       },
       {
+        title: "来源",
+        key: "user_host",
+      },
+      {
         title: "命令类型",
         key: "command_type",
+        width: "100",
       },
+      {
+        title: "线程 ID",
+        key: "thread_id",
+        width: "100",
+      },
+
       {
         title: "执行语句",
         key: "argument",
