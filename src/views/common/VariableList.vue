@@ -8,13 +8,13 @@
     <n-gi v-for="item in data" :key="item[key]">
       <up-card
         :label="item.name"
-        :value="valueComputed(item.value)"
+        :value="valueComputedFunc(item.value)"
         :extra="item.extra"
         size="small"
         ><up-icon
           icon="Ellipse"
-          :color="colorComputed(item.value)"
-          v-if="showSwitchComputed(item.value)" /></up-card></n-gi
+          :color="colorComputedFunc(item.value)"
+          v-if="showSwitchComputedFunc(item.value)" /></up-card></n-gi
   ></n-grid>
 </template>
 
@@ -37,14 +37,14 @@ export default {
     },
   },
   setup() {
-    const colorComputed = (value) => (value == "ON" ? "green" : "red");
-    const showSwitchComputed = (value) => value == "ON" || value == "OFF";
-    const valueComputed = (value) => (value ? value : "加载中...");
+    const colorComputedFunc = (value) => (value == "ON" ? "green" : "red");
+    const showSwitchComputedFunc = (value) => value == "ON" || value == "OFF";
+    const valueComputedFunc = (value) => (value ? value : "加载中...");
     return {
       LOCAL_CONFIG,
-      colorComputed,
-      showSwitchComputed,
-      valueComputed,
+      colorComputedFunc,
+      showSwitchComputedFunc,
+      valueComputedFunc,
     };
   },
 };
