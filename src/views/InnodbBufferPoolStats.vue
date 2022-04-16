@@ -30,14 +30,32 @@
       </n-tab-pane>
       <n-tab-pane name="jay chou" tab="Binary Log"> 七里香 </n-tab-pane>
     </n-tabs>
+    <n-modal v-model:show="showModal" title="SQL 详情" preset="dialog">
+      <n-descriptions label-placement="left" size="large" column="1">
+        <n-descriptions-item label="来源">
+          {{ row.data.user_host }}
+        </n-descriptions-item>
+        <n-descriptions-item label="线程 ID">
+          {{ row.data.thread_id }}
+        </n-descriptions-item>
+        <n-descriptions-item label="服务 ID">
+          {{ row.data.server_id }}
+        </n-descriptions-item>
+        <n-descriptions-item label="SQL 语句">
+          <n-code :code="row.data.argument" language="sql" inline />
+        </n-descriptions-item>
+      </n-descriptions>
+    </n-modal>
   </div>
 </template>
 
 <script>
-import { onMounted, reactive } from "vue";
+import { onMounted, reactive, h, ref } from "vue";
 import { UpIconHeader, UpCard, UpIcon, UpTable } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
+import moment from "moment";
 import query from "@/dao";
+import { NButton, NCode } from "naive-ui";
 export default {
   components: {
     UpCard,
@@ -46,6 +64,8 @@ export default {
     UpTable,
   },
   setup() {
+    let showModal = ref(false);
+    let row = reactive({ data: {} });
     let items = reactive([]);
     onMounted(() => {
       console.log(query);
@@ -66,22 +86,18 @@ export default {
       let offset = (currentPage - 1) * pageSize;
       return new Promise((resolve) => {
         query(
-          "select event_time as a, convert(argument using utf8) as text from mysql.general_log order by event_time desc limit " +
+          "select event_time, user_host, thread_id, server_id, command_type, convert(argument using utf8) as argument from mysql.general_log order by event_time desc limit " +
             offset +
             ", " +
             pageSize
         ).then((resu) => {
-          console.log(resu);
-          console.log(items);
-          let data = [];
           resu.forEach((element) => {
-            data.push({
-              column1: element.event_time,
-              column2: element.text,
-            });
+            element.event_time = moment(element.event_time).format(
+              "yyyy-MM-DD HH:mm:ss SSS"
+            );
           });
           query("select count(1) as count from mysql.general_log").then((s) => {
-            resolve({ data: data, total: s[0].count });
+            resolve({ data: resu, total: s[0].count });
           });
 
           // resu.forEach(element => {
@@ -96,12 +112,44 @@ export default {
     let columns = [
       {
         title: "时间",
-        key: "column1",
+        key: "event_time",
         sorter: true,
+        width: 200,
+      },
+      {
+        title: "命令类型",
+        key: "command_type",
+        width: 100,
       },
       {
         title: "执行语句",
-        key: "column2",
+        key: "argument",
+        ellipsis: true,
+        render(r) {
+          return h(NCode, {
+            code: r.argument,
+            language: "sql",
+            inline: true
+          });
+        },
+      },
+      {
+        title: "操作",
+        key: "action",
+        width: 100,
+        render(r) {
+          return h(
+            NButton,
+            {
+              size: "small",
+              onClick: () => {
+                showModal.value = true;
+                row.data = r;
+              },
+            },
+            { default: () => "详情" }
+          );
+        },
       },
     ];
     return {
@@ -109,6 +157,8 @@ export default {
       queryFunc,
       columns,
       LOCAL_CONFIG,
+      showModal,
+      row,
     };
   },
 };

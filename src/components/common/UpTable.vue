@@ -9,6 +9,7 @@
     :row-key="rowKey"
     @update:sorter="handleSorterChange"
     @update:page="handlePageChange"
+    @update:page-size="handlePageSizeChange"
   />
 </template>
 
@@ -76,6 +77,9 @@ export default {
       handlePageChange(currentPage) {
         queryData(currentPage);
       },
+      handlePageSizeChange(currentPageSize) {
+          paginationReactive.pageSize = currentPageSize
+      }
     };
   },
 };
