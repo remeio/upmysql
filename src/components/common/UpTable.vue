@@ -7,6 +7,7 @@
     :loading="loading"
     :pagination="pagination"
     :row-key="rowKey"
+    :max-height="300"
     @update:sorter="handleSorterChange"
     @update:page="handlePageChange"
     @update:page-size="handlePageSizeChange"
