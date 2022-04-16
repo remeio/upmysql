@@ -92,7 +92,7 @@ export default {
       queryVariables();
     });
     const clickVariable = function (item) {
-      if (props.status === true) {
+      if (props.status === true || (item.readonly && item.readonly === true)) {
         return;
       }
       variablesReactive.data = item;
