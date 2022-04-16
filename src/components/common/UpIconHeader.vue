@@ -11,7 +11,7 @@ export default {
     // 图标尺寸字典
     const iconSizeDict = { 1: 24, 2: 20, 3: 16, 4: 12, 5: 12, 6: 12 };
     if (!props.icon) {
-      return () => h(headerDict[props.level], null, props.value);
+      return () => h(headerDict[props.level], null, () => props.value);
     }
     return () =>
       h(headerDict[props.level], null, [
@@ -22,7 +22,7 @@ export default {
             size: iconSizeDict[props.level],
             color: appThemeColor,
           },
-          h(props.icon)
+          () => h(props.icon)
         ),
         " " + props.value,
       ]);
