@@ -27,7 +27,9 @@ import { UpCard, UpIcon } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
 import { reactive, ref } from "@vue/reactivity";
 import VariableModal from "./VariableModal.vue";
-import { provide } from '@vue/runtime-core';
+import { onMounted, provide } from "@vue/runtime-core";
+import executeSql from "@/dao";
+import { useMessage } from "naive-ui";
 export default {
   components: {
     UpCard,
@@ -44,7 +46,8 @@ export default {
       default: "extra",
     },
   },
-  setup() {
+  setup(props) {
+    const message = useMessage();
     const colorComputedFunc = (value) => (value == "ON" ? "green" : "red");
     const showSwitchComputedFunc = (value) => value == "ON" || value == "OFF";
     const valueComputedFunc = (value) => (value ? value : "-");
@@ -57,7 +60,22 @@ export default {
     const whenChangSuccess = (newVal) => {
       variable.data.value = newVal;
     };
-    provide("whenChangSuccess", whenChangSuccess)
+    const queryVariablesFunc = () => {
+      executeSql("show global variables").then(
+        (res) => {
+          props.data.forEach((v) => {
+            v.value = res.filter((r) => {
+              return r.Variable_name == v.extra;
+            })[0].Value;
+          });
+        },
+        () => message.error("查询参数信息失败")
+      );
+    };
+    onMounted(() => {
+      queryVariablesFunc();
+    });
+    provide("whenChangSuccess", whenChangSuccess);
     return {
       LOCAL_CONFIG,
       colorComputedFunc,
