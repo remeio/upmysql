@@ -12,7 +12,7 @@
               : formData.extra
           }}
         </n-form-item>
-        <n-form-item label="配置值">
+        <n-form-item label="配置值" path="value">
           <n-switch
             checked-value="ON"
             unchecked-value="OFF"
@@ -20,7 +20,12 @@
             v-if="formData.value == 'ON' || formData.value == 'OFF'"
           />
           <n-input-number
-            v-else-if="!isNaN(formData.value)"
+            v-else-if="
+              !isNaN(formData.value) &&
+              formData &&
+              formData.value != null &&
+              formData.value != ''
+            "
             v-model:value="formData.value"
             clearable
           />
