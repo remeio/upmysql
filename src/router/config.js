@@ -10,9 +10,9 @@ const routerConfig = [
         key: "variable",
         children: [
           {
-            label: "MySQL Server Logs",
+            label: "日志管理",
             key: "logs",
-            icon: "BarChartOutline",
+            icon: "AnalyticsOutline",
             component: import("@/views/logs/Logs.vue"),
           },
         ],
