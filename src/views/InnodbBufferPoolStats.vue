@@ -54,7 +54,7 @@ import { onMounted, reactive, h, ref } from "vue";
 import { UpIconHeader, UpCard, UpIcon, UpTable } from "@/components/common";
 import LOCAL_CONFIG from "@/config";
 import moment from "moment";
-import query from "@/dao";
+import executeSql from "@/dao";
 import { NButton, NCode } from "naive-ui";
 export default {
   components: {
@@ -73,16 +73,7 @@ export default {
       { name: "SQL文件路径", extra: "general_log_file" },
     ]);
     onMounted(() => {
-      console.log(query);
-      query("show variables").then((resu) => {
-        console.log(resu);
-        console.log(items);
-        // resu.forEach(element => {
-        //   items.push({
-        //     name: element.Variable_name,
-        //     value: element.Value
-        //   })
-        // });
+      executeSql("show variables").then((resu) => {
         items.forEach((r) => {
           r.value = resu.filter((s) => {
             return s.Variable_name == r.extra;
@@ -92,10 +83,10 @@ export default {
     });
 
     let queryFunc = function (currentPage, pageSize) {
-      query("set session sql_log_off='ON'");
+      executeSql("set session sql_log_off='ON'");
       let offset = (currentPage - 1) * pageSize;
       return new Promise((resolve) => {
-        query(
+        executeSql(
           "select event_time, user_host, thread_id, server_id, command_type, convert(argument using utf8) as argument from mysql.general_log order by event_time desc limit " +
             offset +
             ", " +
@@ -106,9 +97,11 @@ export default {
               "yyyy-MM-DD HH:mm:ss SSS"
             );
           });
-          query("select count(1) as count from mysql.general_log").then((s) => {
-            resolve({ data: resu, total: s[0].count });
-          });
+          executeSql("select count(1) as count from mysql.general_log").then(
+            (s) => {
+              resolve({ data: resu, total: s[0].count });
+            }
+          );
 
           // resu.forEach(element => {
           //   items.push({

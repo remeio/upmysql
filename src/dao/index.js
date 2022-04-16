@@ -6,7 +6,7 @@ const pool = createPool({
   password: "root@123456",
   database: "mysql",
 });
-var query = function (sql) {
+var executeSql = function (sql) {
   return new Promise((resolve, reject) => {
     pool.getConnection(function (err, conn) {
       if (err) {
@@ -24,4 +24,4 @@ var query = function (sql) {
   });
 };
 //向外暴露方法
-export default query;
+export default executeSql;
