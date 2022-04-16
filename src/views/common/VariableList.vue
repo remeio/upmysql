@@ -10,7 +10,7 @@
         <up-card
           @click.stop="onClickVariable(item)"
           :label="item.name"
-          :value="valueComputedFunc(item.value)"
+          :value="valueComputedFunc(item)"
           :extra="item.extra"
           size="small"
           ><up-icon
@@ -50,7 +50,15 @@ export default {
     const message = useMessage();
     const colorComputedFunc = (value) => (value == "ON" ? "green" : "red");
     const showSwitchComputedFunc = (value) => value == "ON" || value == "OFF";
-    const valueComputedFunc = (value) => (value ? value : "-");
+    const valueComputedFunc = (item) => {
+      if (item.value) {
+        if (item.unit) {
+          return item.value + " (" + item.unit + ")";
+        }
+        return item.value;
+      }
+      return "-";
+    };
     const variable = reactive({ data: {} });
     const showModal = ref(false);
     const onClickVariable = function (item) {
