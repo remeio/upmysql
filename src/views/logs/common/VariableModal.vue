@@ -27,13 +27,9 @@
             "
           />
           <n-input-number
-            v-else-if="
-              !isNaN(formDataReactive.value) &&
-              formDataReactive &&
-              formDataReactive.value != null &&
-              formDataReactive.value != ''
-            "
+            v-else-if="isNumber(formDataReactive.value) === true"
             v-model:value="formDataReactive.value"
+            :min="0"
             clearable
           />
           <n-input
@@ -62,12 +58,31 @@ export default {
   setup(props, context) {
     const message = useMessage();
     const formDataReactive = reactive({});
+
+    const isNumber = function (val) {
+      //判断是否是数字
+      var regPos = /^[0-9]+.?[0-9]*/;
+      if (regPos.test(val)) {
+        return true;
+      } else {
+        return false;
+      }
+    };
     const rulesReactive = reactive({
       value: [
         {
           required: true,
           message: "请输入配置值",
           trigger: ["input", "blur"],
+          validator: (r, value) => {
+            if (isNumber(value)) {
+              return true;
+            }
+            if (value && value.length > 0) {
+              return true;
+            }
+            return false;
+          },
         },
       ],
     });
@@ -85,6 +100,9 @@ export default {
         formDataReactive.value = n.value;
         formDataReactive.extra = n.extra;
       }
+    });
+    watch(formDataReactive, () => {
+      console.log(formDataReactive.value);
     });
     watch(props.data, (data) => {
       const n = data.data;
@@ -120,6 +138,7 @@ export default {
       formDataReactive,
       submitForm,
       showModalRef,
+      isNumber,
     };
   },
   props: {
