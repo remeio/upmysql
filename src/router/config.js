@@ -7,10 +7,10 @@ const routerConfig = [
       {
         type: "group",
         label: "服务端管理",
-        key: "variable",
+        key: "server",
         children: [
           {
-            label: "日志管理",
+            label: "Server Logs",
             key: "logs",
             icon: "AnalyticsOutline",
             component: import("@/views/logs/Logs.vue"),
