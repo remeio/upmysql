@@ -38,30 +38,35 @@ export default {
         return `总数 ${itemCount}`;
       },
     });
+    const sorterReactive = reactive({ key: null, order: false });
 
-    let queryData = function (currentPage) {
-      console.log("ss");
-      debugger;
+    const queryDataFunc = function (currentPage) {
       if (!loadingRef.value) {
         loadingRef.value = true;
         props
           .query(
             currentPage ? currentPage : paginationReactive.page,
-            paginationReactive.pageSize
+            paginationReactive.pageSize,
+            sorterReactive
           )
-          .then((data) => {
-            dataRef.value = data.data;
-            paginationReactive.page = currentPage
-              ? currentPage
-              : paginationReactive.page;
-            paginationReactive.pageCount = data.pageCount;
-            paginationReactive.itemCount = data.total;
-            loadingRef.value = false;
-          });
+          .then(
+            (data) => {
+              dataRef.value = data.data;
+              paginationReactive.page = currentPage
+                ? currentPage
+                : paginationReactive.page;
+              paginationReactive.pageCount = data.pageCount;
+              paginationReactive.itemCount = data.total;
+              loadingRef.value = false;
+            },
+            () => {
+              loadingRef.value = false;
+            }
+          );
       }
     };
     onMounted(() => {
-      queryData();
+      queryDataFunc();
     });
 
     return {
@@ -69,17 +74,23 @@ export default {
       pagination: paginationReactive,
       loading: loadingRef,
       rowKey(rowData) {
-        return rowData.column1;
+        return rowData.id;
       },
-      handleSorterChange() {
-        queryData();
+      handleSorterChange(sorter) {
+        sorterReactive.key = sorter.columnKey;
+        if (sorter.sorter === false) {
+          sorterReactive.order = false;
+        } else {
+          sorterReactive.order = sorter.order === "ascend" ? "asc" : "desc";
+        }
+        queryDataFunc();
       },
       handlePageChange(currentPage) {
-        queryData(currentPage);
+        queryDataFunc(currentPage);
       },
       handlePageSizeChange(currentPageSize) {
-          paginationReactive.pageSize = currentPageSize
-      }
+        paginationReactive.pageSize = currentPageSize;
+      },
     };
   },
 };
