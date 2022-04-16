@@ -4,6 +4,7 @@ import { NH1, NH2, NH3, NH4, NH5, NH6 } from "naive-ui";
 import UpIcon from "./UpIcon.vue";
 
 export default {
+  name: "UpIconHeader",
   setup(props) {
     const appThemeColor = inject("appThemeColor");
     // 组件字典

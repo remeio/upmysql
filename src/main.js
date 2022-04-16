@@ -10,10 +10,12 @@ VueClipboard.config.autoSetContainer = true;
 // 代码高亮插件
 import VueHighlightJS from "vue-highlightjs";
 import "highlight.js/styles/atom-one-dark.css";
+// 自定义组件
+import Up from "@/components/common/index.js";
 
 // 创建 APP
 const app = createApp(App);
 // 使用插件
-app.use(naive).use(VueHighlightJS).use(VueClipboard).use(router);
+app.use(naive).use(Up).use(VueHighlightJS).use(VueClipboard).use(router);
 // 挂载
 app.mount("#app");

@@ -18,6 +18,7 @@
 import { ref, reactive, onMounted } from "vue";
 
 export default {
+  name: "UpTable",
   props: {
     columns: {
       type: Array,

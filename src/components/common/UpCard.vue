@@ -24,6 +24,7 @@
 <script>
 import { reactive } from "vue";
 export default {
+  name: "UpCard",
   setup() {
     const ellipsisStyle = reactive({
       "max-width": "70%",

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouterLink } from "vue-router";
 import { h } from "vue";
-import { UpIcon } from "@/components/common";
+import UpIcon from "@/components/common/UpIcon";
 import { routerConfig } from "@/router/config";
 /**
  * 渲染 icon

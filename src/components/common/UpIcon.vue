@@ -2,6 +2,7 @@
 import { inject, h, computed } from "vue";
 import { NIcon, NButton } from "naive-ui";
 export default {
+  name: "UpIcon",
   setup(props) {
     const appThemeColor = inject("appThemeColor");
     const color = computed(() =>
