@@ -39,7 +39,7 @@ export default {
   setup() {
     const colorComputedFunc = (value) => (value == "ON" ? "green" : "red");
     const showSwitchComputedFunc = (value) => value == "ON" || value == "OFF";
-    const valueComputedFunc = (value) => (value ? value : "加载中...");
+    const valueComputedFunc = (value) => (value ? value : "-");
     return {
       LOCAL_CONFIG,
       colorComputedFunc,
