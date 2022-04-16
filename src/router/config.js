@@ -10,8 +10,8 @@ const routerConfig = [
         key: "variable",
         children: [
           {
-            label: "日志",
-            key: "innodb_buffer_pool",
+            label: "MySQL Server Logs",
+            key: "logs",
             icon: "BarChartOutline",
             component: import("@/views/logs/Logs.vue"),
           },
