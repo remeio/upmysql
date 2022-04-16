@@ -13,7 +13,7 @@ const routerConfig = [
             label: "日志",
             key: "innodb_buffer_pool",
             icon: "BarChartOutline",
-            component: import("@/views/InnodbBufferPoolStats.vue"),
+            component: import("@/views/logs/Logs.vue"),
           },
         ],
       },
