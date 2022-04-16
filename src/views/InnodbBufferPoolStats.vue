@@ -66,7 +66,12 @@ export default {
   setup() {
     let showModal = ref(false);
     let row = reactive({ data: {} });
-    let items = reactive([]);
+    let items = reactive([
+      { name: "是否开启 General log", extra: "general_log" },
+      { name: "日志输出格式", extra: "log_output" },
+      { name: "当前SQL日志是否关闭", extra: "sql_log_off" },
+      { name: "SQL文件路径", extra: "general_log_file" },
+    ]);
     onMounted(() => {
       console.log(query);
       query("show variables").then((resu) => {
@@ -78,6 +83,11 @@ export default {
         //     value: element.Value
         //   })
         // });
+        items.forEach((r) => {
+          r.value = resu.filter((s) => {
+            return s.Variable_name == r.extra;
+          })[0].Value;
+        });
       });
     });
 
@@ -114,12 +124,10 @@ export default {
         title: "时间",
         key: "event_time",
         sorter: true,
-        width: 200,
       },
       {
         title: "命令类型",
         key: "command_type",
-        width: 100,
       },
       {
         title: "执行语句",
@@ -129,7 +137,7 @@ export default {
           return h(NCode, {
             code: r.argument,
             language: "sql",
-            inline: true
+            inline: true,
           });
         },
       },
