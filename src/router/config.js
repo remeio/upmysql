@@ -15,6 +15,12 @@ const routerConfig = [
             icon: "AnalyticsOutline",
             component: import("@/views/logs/Logs.vue"),
           },
+          {
+            label: "Language Structure",
+            key: "ls",
+            icon: "AnalyticsOutline",
+            component: import("@/views/SqlExecute.vue"),
+          },
         ],
       },
     ],
