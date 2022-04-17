@@ -129,7 +129,7 @@ export default {
         readonly: false,
       },
       {
-        name: "InnoDB 存储引擎恢复选项",
+        name: "InnoDB 恢复选项",
         extra: "innodb_force_recovery",
         readonly: true,
       },
