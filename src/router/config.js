@@ -23,10 +23,16 @@ const routerConfig = [
         key: "server",
         children: [
           {
-            label: "Server Logs",
+            label: "服务端日志",
             key: "logs",
             icon: "AnalyticsOutline",
             component: import("@/views/logs/Logs.vue"),
+          },
+          {
+            label: "存储引擎",
+            key: "engines",
+            icon: "HelpBuoyOutline",
+            component: import("@/views/server/EngineList.vue"),
           },
         ],
       },
