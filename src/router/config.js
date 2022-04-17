@@ -6,14 +6,14 @@ const routerConfig = [
     children: [
       {
         type: "group",
-        label: "实用工具",
-        key: "utils",
+        label: "InnoDB 存储引擎",
+        key: "innodb",
         children: [
           {
-            label: "执行 SQL",
-            key: "execute_sql",
+            label: "参数列表",
+            key: "list",
             icon: "FlashOutline",
-            component: import("@/views/utils/SqlExecute.vue"),
+            component: import("@/views/innodb/InnoDbList.vue"),
           },
         ],
       },
@@ -33,6 +33,19 @@ const routerConfig = [
             key: "engines",
             icon: "HelpBuoyOutline",
             component: import("@/views/server/EngineList.vue"),
+          },
+        ],
+      },
+      {
+        type: "group",
+        label: "实用工具",
+        key: "utils",
+        children: [
+          {
+            label: "执行 SQL",
+            key: "execute_sql",
+            icon: "FlashOutline",
+            component: import("@/views/utils/SqlExecute.vue"),
           },
         ],
       },
