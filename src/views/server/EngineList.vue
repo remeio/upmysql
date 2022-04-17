@@ -27,7 +27,6 @@ export default {
               ? "info"
               : "error",
           size: "small",
-          round: true,
         },
         () =>
           r[key] === "YES" ? "支持" : r[key] === "DEFAULT" ? "默认" : "不支持"
