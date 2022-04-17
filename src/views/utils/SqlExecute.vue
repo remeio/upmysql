@@ -6,16 +6,18 @@
         type="textarea"
         v-model:value="sqlRef"
         :row-key="id"
-        placeholder="请输入要执行的 SQL"
+        placeholder="请输入要执行的 SQL..."
         :loading="loadingRef"
       />
     </n-gi>
     <n-gi :span="1">
       <n-card title="执行结果：">
-        <n-scrollbar x-scrollable>
-          <div style="white-space: nowrap; padding: 8px">
-            <n-code :code="resultRef" :language="'json'" word-wrap inline />
-          </div>
+        <n-scrollbar style="max-height: 240px">
+          <n-code
+            :code="resultRef"
+            :language="'json'"
+            word-wrap
+          />
         </n-scrollbar>
       </n-card>
     </n-gi>
@@ -37,7 +39,11 @@ export default {
       loadingRef.value = true;
       executeSql(sqlRef.value.substring(0, sqlRef.value.length - 1)).then(
         (res) => {
-          resultRef.value = JSON.stringify(JSON.parse(JSON.stringify(res)), null, "\t");
+          resultRef.value = JSON.stringify(
+            JSON.parse(JSON.stringify(res)),
+            null,
+            "\t"
+          );
           message.success("执行成功");
           loadingRef.value = false;
         },
