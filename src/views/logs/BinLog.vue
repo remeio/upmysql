@@ -15,7 +15,7 @@
     </p>
     <up-icon-header value="参数信息" icon="BarChartOutline" :level="2" />
     <variable-list :data="variablesReactive" />
-    <up-icon-header value="状态信息" icon="BarChartOutline" :level="2" />
+    <up-icon-header value="状态信息" icon="FitnessOutline" :level="2" />
     <variable-list :data="statusReactive" :status="true" />
   </div>
 </template>

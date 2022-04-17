@@ -12,7 +12,7 @@ const routerConfig = [
           {
             label: "执行 SQL",
             key: "execute_sql",
-            icon: "AnalyticsOutline",
+            icon: "FlashOutline",
             component: import("@/views/utils/SqlExecute.vue"),
           },
         ],
