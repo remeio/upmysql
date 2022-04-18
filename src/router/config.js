@@ -26,7 +26,7 @@ const routerConfig = [
             label: "服务端日志",
             key: "logs",
             icon: "AnalyticsOutline",
-            component: import("@/views/logs/Logs.vue"),
+            component: import("@/views/server/logs/Logs.vue"),
           },
           {
             label: "存储引擎",

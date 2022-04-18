@@ -2,23 +2,22 @@
   <div>
     <up-icon-header value="描述" icon="InformationCircleOutline" :level="2" />
     <p>
-      The slow query log consists of SQL statements that take more than
-      <b>long_query_time</b> seconds to execute and require at least
-      <b>min_examined_row_limit</b> rows to be examined.
+      Established <b>client connections</b> and <b>statements</b> received from
+      clients.
     </p>
     <up-icon-header value="参数信息" icon="BarChartOutline" :level="2" />
     <variable-list :data="variablesReactive" />
     <up-icon-header value="日志跟踪" icon="AnalyticsOutline" :level="2" />
     <up-table :query="queryTable" :columns="tableColumns" />
     <n-modal v-model:show="showInfoModalRef" title="SQL 详情" preset="dialog">
-      <n-code :code="infoRowReactive.data.sql_text" language="sql" inline />
+      <n-code :code="infoRowReactive.data.argument" language="sql" inline />
     </n-modal>
   </div>
 </template>
 
 <script>
 import { reactive, h, ref } from "vue";
-import VariableList from "@/views/logs/common/VariableList";
+import VariableList from "@/views/server/logs/common/VariableList";
 import LOCAL_CONFIG from "@/config";
 import moment from "moment";
 import executeSql from "@/dao";
@@ -39,30 +38,17 @@ export default {
     const tableColumns = [
       {
         title: "时间",
-        key: "start_time",
+        key: "event_time",
         sorter: true,
       },
       {
-        title: "查询耗时",
-        key: "query_time",
-        sorter: true,
-        width: 100,
-      },
-      {
-        title: "加锁时间",
-        key: "lock_time",
-        sorter: true,
-        width: 100,
-      },
-
-      {
-        title: "插入ID",
-        key: "insert_id",
+        title: "来源",
+        key: "user_host",
         sorter: true,
       },
       {
-        title: "上次插入 ID",
-        key: "last_insert_id",
+        title: "命令类型",
+        key: "command_type",
         sorter: true,
       },
       {
@@ -72,38 +58,12 @@ export default {
       },
 
       {
-        title: "来源",
-        key: "user_host",
-        sorter: true,
-        ellipsis: {
-          tooltip: true,
-        },
-      },
-      {
-        title: "发送行数",
-        key: "rows_sent",
-        sorter: true,
-      },
-      {
-        title: "扫描行数",
-        key: "rows_examined",
-        sorter: true,
-      },
-      {
-        title: "数据库",
-        key: "db",
-        sorter: true,
-        ellipsis: {
-          tooltip: true,
-        },
-      },
-      {
         title: "执行语句",
-        key: "sql_text",
+        key: "argument",
         ellipsis: true,
         render(r) {
           return h(NCode, {
-            code: r.sql_text,
+            code: r.argument,
             language: "sql",
             inline: true,
           });
@@ -129,16 +89,16 @@ export default {
     // 分页查询
     const queryTable = function (currentPage, pageSize, sorter) {
       console.log(sorter);
-      let order = "order by start_time desc";
+      let order = "order by event_time desc";
       if (sorter && sorter.order) {
         order = "order by " + sorter.key + " " + sorter.order;
       }
       const offset = (currentPage - 1) * pageSize;
       return new Promise((resolve, reject) => {
-        executeSql("select count(1) as count from mysql.slow_log").then(
+        executeSql("select count(1) as count from mysql.general_log").then(
           (res) => {
             executeSql(
-              "select start_time, user_host, query_time, lock_time, rows_sent, rows_examined, db, last_insert_id, server_id, thread_id, convert(sql_text using utf8) as sql_text from mysql.slow_log " +
+              "select event_time, user_host, thread_id, server_id, command_type, convert(argument using utf8) as argument from mysql.general_log " +
                 order +
                 " limit " +
                 offset +
@@ -147,7 +107,7 @@ export default {
             ).then(
               (result) => {
                 result.forEach((r) => {
-                  r.start_time = moment(r.start_time).format(
+                  r.event_time = moment(r.event_time).format(
                     "yyyy-MM-DD HH:mm:ss SSS"
                   );
                 });
@@ -169,32 +129,14 @@ export default {
 
     // 系统变量列表
     const variablesReactive = reactive([
-      { name: "是否开启慢查询日志", extra: "slow_query_log" },
-
-      { name: "慢查询阈值", extra: "long_query_time", unit: "秒" },
-
-      {
-        name: "是否记录未使用索引的查询",
-        extra: "log_queries_not_using_indexes",
-      },
-      {
-        name: "每分钟记录的未使用索引的SQL次数的阈值",
-        extra: "log_throttle_queries_not_using_indexes",
-        unit: "次每分",
-      },
-      { name: "扫描行数阈值", extra: "min_examined_row_limit", unit: "行" },
+      { name: "是否开启查询日志", extra: "general_log" },
       { name: "日志输出格式", extra: "log_output" },
-      { name: "慢查询日志文件路径", extra: "slow_query_log_file" },
-      { name: "是否包含管理语句", extra: "log_slow_admin_statements" },
-
-      { name: "是否记录额外信息", extra: "log_slow_extra" },
+      { name: "日志是否关闭", extra: "sql_log_off" },
+      { name: "查询日志文件路径", extra: "general_log_file" },
       { name: "日志时间戳", extra: "log_timestamps" },
-      {
-        name: "主从复制是否复制慢查询（MySQL 8.0.26）",
-        extra: "log_slow_replica_statements",
-      },
-      { name: "主从复制是否复制慢查询", extra: "log_slow_slave_statements " },
+      { name: "日志时区", extra: "time_zone" },
     ]);
+
     return {
       variablesReactive,
       queryTable,

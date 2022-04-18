@@ -87,7 +87,7 @@ export default {
           loadingRef.value = false;
         },
         () => {
-          loadingRef.value = true;
+          loadingRef.value = false;
           message.error("查询引擎信息失败");
         }
       );

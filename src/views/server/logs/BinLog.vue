@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import VariableList from "@/views/logs/common/VariableList";
+import VariableList from "@/views/server/logs/common/VariableList";
 import { reactive } from "@vue/reactivity";
 
 export default {

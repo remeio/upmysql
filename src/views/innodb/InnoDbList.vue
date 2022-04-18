@@ -7,7 +7,7 @@
 
 <script>
 import { reactive } from "@vue/reactivity";
-import VariableList from "@/views/logs/common/VariableList";
+import VariableList from "@/views/server/logs/common/VariableList";
 export default {
   components: {
     VariableList,
