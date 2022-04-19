@@ -95,6 +95,12 @@ export default {
         readonly: false,
         unit: "秒",
       },
+      {
+        name: "最大连接数",
+        extra: "max_connections",
+        readonly: false,
+        unit: "个",
+      },
     ]);
     onMounted(() => {
       query();
