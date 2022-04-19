@@ -115,6 +115,53 @@ export default {
         ],
       },
       {
+        title: "表空间文件",
+        data: [
+          {
+            name: "表空间文件路径",
+            extra: "innodb_data_file_path",
+            readonly: true,
+          },
+          {
+            name: "是否开启独立表空间",
+            extra: "innodb_file_per_table",
+            readonly: false,
+          }
+        ],
+      },
+      {
+        title: "重做日志文件",
+        data: [
+          {
+            name: "重做日志文件大小",
+            extra: "innodb_log_file_size",
+            unit: "B",
+            readonly: true,
+          },
+          {
+            name: "组内重做日志文件个数",
+            extra: "innodb_log_files_in_group",
+            unit: "个",
+            readonly: true,
+          },
+          {
+            name: "日志镜像文件组的数量",
+            extra: "innodb_mirrored_log_groups",
+            unit: "个",
+            readonly: true,
+          },
+          {
+            name: "重做日志文件路径",
+            extra: "innodb_log_group_home_dir",
+            readonly: true,
+          },
+           {
+            name: "重做日志刷盘机制",
+            extra: "innodb_flush_log_at_trx_commit",
+          }
+        ],
+      },
+      {
         title: "其他特性",
         data: [
           {
