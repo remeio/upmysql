@@ -34,6 +34,12 @@ const routerConfig = [
             icon: "HelpBuoyOutline",
             component: import("@/views/server/EngineList.vue"),
           },
+          {
+            label: "连接管理",
+            key: "processlist",
+            icon: "LinkOutline",
+            component: import("@/views/server/ProcessList.vue"),
+          },
         ],
       },
       {

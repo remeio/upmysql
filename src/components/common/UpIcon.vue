@@ -81,6 +81,7 @@ import {
   FitnessOutline,
   FlashOutline,
   HelpBuoyOutline,
+  LinkOutline,
 } from "@vicons/ionicons5";
 const iconDict = {
   BarChartOutline,
@@ -96,6 +97,7 @@ const iconDict = {
   FitnessOutline,
   FlashOutline,
   HelpBuoyOutline,
+  LinkOutline,
 };
 </script>
 
