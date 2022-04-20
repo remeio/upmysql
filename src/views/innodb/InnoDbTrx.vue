@@ -1,11 +1,12 @@
 <template>
   <div>
+    <up-icon-header value="事务状态" icon="BarChartOutline" :level="2" />
+    <variable-list :data="variablesReactive" />
+    <up-icon-header value="事务信息" icon="BarChartOutline" :level="2" />
     <n-data-table
       :columns="columnsReactive"
       :data="dataReactive"
       :loading="loadingRef"
-      x-scroll
-      width="1200"
     />
   </div>
 </template>
@@ -16,9 +17,37 @@ import executeSql from "@/dao";
 import { NTag, useMessage } from "naive-ui";
 import { h, onMounted } from "@vue/runtime-core";
 import moment from "moment";
+import VariableList from "@/views/server/logs/common/VariableList";
 export default {
+  components: {
+    VariableList,
+  },
   setup() {
     const message = useMessage();
+    const variablesReactive = reactive([
+      {
+        name: "事务隔离级别",
+        extra: "transaction_isolation",
+        readonly: false,
+      },
+      {
+        name: "只读事务",
+        extra: "transaction_read_only",
+        readonly: false,
+      },
+      {
+        name: "InnoDB 锁等待超时",
+        extra: "innodb_lock_wait_timeout",
+        readonly: false,
+        unit: "秒",
+      },
+      {
+        name: "锁等待超时",
+        extra: "lock_wait_timeout",
+        readonly: false,
+        unit: "毫秒",
+      },
+    ]);
     const renderTag = function (r) {
       return h(
         NTag,
@@ -71,6 +100,9 @@ export default {
       {
         title: "隔离级别",
         key: "trx_isolation_level",
+        render(r) {
+          return renderTag(r.trx_isolation_level);
+        },
       },
     ]);
     const dataReactive = reactive([]);
@@ -99,6 +131,7 @@ export default {
       columnsReactive,
       dataReactive,
       loadingRef,
+      variablesReactive,
     };
   },
 };
