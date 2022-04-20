@@ -6,7 +6,7 @@ export default {
   setup(props) {
     const appThemeColor = inject("appThemeColor");
     const color = computed(() =>
-      props.color ? props.color : appThemeColor.value
+      props.color ? props.color : appThemeColor
     );
     if (props.onClick) {
       return () =>
@@ -21,7 +21,7 @@ export default {
             {
               size: props.size,
               // 设置颜色
-              color: color.value,
+              color: color,
               // 设置颜色深度
               depth: props.depth,
             },
@@ -35,7 +35,7 @@ export default {
         {
           size: props.size,
           // 设置颜色
-          color: color.value,
+          color: color,
           // 设置颜色深度
           depth: props.depth,
         },
