@@ -15,6 +15,12 @@ const routerConfig = [
             icon: "FlashOutline",
             component: () => import("@/views/innodb/InnoDbList.vue"),
           },
+          {
+            label: "事务状态",
+            key: "trx",
+            icon: "FlashOutline",
+            component: () => import("@/views/innodb/InnoDbTrx.vue"),
+          },
         ],
       },
       {
