@@ -18,7 +18,7 @@ const routerConfig = [
           {
             label: "事务状态",
             key: "trx",
-            icon: "FlashOutline",
+            icon: "BarcodeOutline",
             component: () => import("@/views/innodb/InnoDbTrx.vue"),
           },
         ],

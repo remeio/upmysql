@@ -4,6 +4,8 @@
       :columns="columnsReactive"
       :data="dataReactive"
       :loading="loadingRef"
+      x-scroll
+      width="1200"
     />
   </div>
 </template>
@@ -39,7 +41,10 @@ export default {
           return renderTag(r.trx_state);
         },
       },
-
+      {
+        title: "线程ID",
+        key: "trx_mysql_thread_id",
+      },
       {
         title: "开始时间",
         key: "trx_started",
@@ -48,16 +53,20 @@ export default {
         },
       },
       {
-        title: "线程ID",
-        key: "trx_mysql_thread_id",
-      },
-      {
         title: "使用的表",
         key: "trx_tables_in_use",
       },
       {
-        title: "锁表",
+        title: "锁住的表",
         key: "trx_tables_locked",
+      },
+      {
+        title: "锁住的行",
+        key: "trx_rows_locked",
+      },
+      {
+        title: "修改的行",
+        key: "trx_rows_modified",
       },
       {
         title: "隔离级别",
