@@ -21,7 +21,7 @@ export default {
             {
               size: props.size,
               // 设置颜色
-              color: color,
+              color: color.value,
               // 设置颜色深度
               depth: props.depth,
             },
@@ -35,7 +35,7 @@ export default {
         {
           size: props.size,
           // 设置颜色
-          color: color,
+          color: color.value,
           // 设置颜色深度
           depth: props.depth,
         },
