@@ -126,6 +126,12 @@ export default {
             name: "是否开启独立表空间",
             extra: "innodb_file_per_table",
             readonly: false,
+          },
+           {
+            name: "默认页的大小",
+            extra: "innodb_page_size",
+            readonly: true,
+            unit: "B"
           }
         ],
       },
