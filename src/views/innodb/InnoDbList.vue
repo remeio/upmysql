@@ -132,6 +132,12 @@ export default {
             extra: "innodb_file_format",
             readonly: false,
           },
+           {
+            name: "默认页的大小",
+            extra: "innodb_page_size",
+            readonly: true,
+            unit: "B"
+          }
         ],
       },
       {
