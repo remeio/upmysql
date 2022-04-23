@@ -126,7 +126,12 @@ export default {
             name: "是否开启独立表空间",
             extra: "innodb_file_per_table",
             readonly: false,
-          }
+          },
+          {
+            name: "文件格式",
+            extra: "innodb_file_format",
+            readonly: false,
+          },
         ],
       },
       {
@@ -155,10 +160,20 @@ export default {
             extra: "innodb_log_group_home_dir",
             readonly: true,
           },
-           {
+          {
             name: "重做日志刷盘机制",
             extra: "innodb_flush_log_at_trx_commit",
-          }
+          },
+        ],
+      },
+      {
+        title: "索引",
+        data: [
+          {
+            name: "自适应刷脏页",
+            extra: "innodb_adaptive_flushing",
+            readonly: false,
+          },
         ],
       },
       {
@@ -205,6 +220,11 @@ export default {
             name: "InnoDB 恢复选项",
             extra: "innodb_force_recovery",
             readonly: true,
+          },
+          {
+            name: "foregin_key_checks",
+            extra: "外键检查",
+            readonly: false,
           },
         ],
       },
