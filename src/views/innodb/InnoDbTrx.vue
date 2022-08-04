@@ -47,6 +47,12 @@ export default {
         readonly: false,
         unit: "毫秒",
       },
+       {
+        name: "是否开启死锁检测",
+        extra: "innodb_deadlock_detect",
+        readonly: false,
+        unit: "",
+      },
     ]);
     const renderTag = function (r) {
       return h(
