@@ -132,12 +132,12 @@ export default {
             extra: "innodb_file_format",
             readonly: false,
           },
-           {
+          {
             name: "默认页的大小",
             extra: "innodb_page_size",
             readonly: true,
-            unit: "B"
-          }
+            unit: "B",
+          },
         ],
       },
       {
@@ -178,6 +178,11 @@ export default {
           {
             name: "自适应刷脏页",
             extra: "innodb_adaptive_flushing",
+            readonly: false,
+          },
+          {
+            name: "统计信息是否持久化",
+            extra: "innodb_stats_persistent",
             readonly: false,
           },
         ],
